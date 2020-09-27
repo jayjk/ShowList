@@ -37,18 +37,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        recyclerView = findViewById(R.id.recycler_view) as RecyclerView;
+        recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
 
         dataViewModel= ViewModelProvider(this).get(DataViewModel::class.java)
 
-        dataViewModel.initial(applicationContext);
+        dataViewModel.initial(applicationContext)
 
 
         val spacing = 30 // 50px
         val includeEdge = true
 
 
-        adapter = StudentAdapter(applicationContext);
+        adapter = StudentAdapter(applicationContext)
 
         recyclerView.layoutManager = GridLayoutManager(applicationContext, 3)
 
@@ -103,8 +103,10 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                getData(newText)
-
+                if(newText.length>3)
+                    getData(newText)
+                 else
+                    getData("")
                 return false
             }
         })
